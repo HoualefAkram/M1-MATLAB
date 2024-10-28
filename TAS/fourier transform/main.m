@@ -82,3 +82,6 @@ xlabel('freq (Hz)');
 ylabel('X4(f)');
 grid on;
 
+figure;
+sound(4*x4,1/.001)
+spectrogram(x4, 50, [], [], fe, 'yaxis');
