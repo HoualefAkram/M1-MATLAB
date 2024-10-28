@@ -1,0 +1,42 @@
+clc  ; clear all ; close all;
+fe = 2000;
+te = 1/fe;
+% graph 1
+T1 = 0.1;
+t1 = 0 : te : T1 - te;
+f1 = 100;
+x1 = cos(2*pi*f1*t1);
+subplot(4,2,1);
+plot(t1,x1);
+xlabel('t (s)');
+ylabel('x1(t)');
+grid on;
+
+N1 = T1/te;
+X1 = fftshift(abs(fft(x1)));
+fv1 = -fe/2 :fe/N1: fe/2 - fe/N1; 
+subplot(4,2,2);
+plot(fv1,X1);
+xlabel('freq (Hz)');
+ylabel('X1(f)');
+grid on;
+
+% graph 2
+T2 = 0.1;
+t2 = 0 : te : T2 - te;
+f2 = 300;
+x2 = cos(2*pi*f2*t2);
+subplot(4,2,2);
+plot(t2,x2);
+xlabel('t (s)');
+ylabel('x2(t)');
+grid on;
+
+N2 = T2/te;
+X1 = fftshift(abs(fft(x1)));
+fv1 = -fe/2 :fe/N1: fe/2 - fe/N1; 
+subplot(4,2,2);
+plot(fv1,X1);
+xlabel('freq (Hz)');
+ylabel('X1(f)');
+grid on;
