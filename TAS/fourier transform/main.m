@@ -83,5 +83,38 @@ ylabel('X4(f)');
 grid on;
 
 figure;
-sound(4*x4,1/.001)
 spectrogram(x4, 50, [], [], fe, 'yaxis');
+
+figure;
+% 1- divide the graph into multiple windows
+% 2- find the freq where the amplitude is not 0 for each window
+
+window_size = 50;
+max_window_number = floor(length(t4)/window_size);
+threshold = 10;
+
+for window_number = 1:1:max_window_number
+    TT = window_size*te;
+    current_indexs = (window_number-1)*window_size + 1 : window_number*window_size;
+    current_time = t4(current_indexs);
+    xx = x4(current_indexs);
+    NN = TT/te;
+    XX = fftshift(abs(fft(xx)));
+    fvv = -fe/2 :fe/NN: fe/2 - fe/N4; 
+%   save the fvv where XX is not 0
+    non_null_amplitude_freq = [];
+    for counter = 1:window_size
+        next_index = length(non_null_amplitude_freq)+1;
+        amplitude = XX(counter);
+        if (amplitude > threshold)
+            freq = fvv(counter);
+            non_null_amplitude_freq(next_index) = freq;
+        else
+            freq = 0;
+            non_null_amplitude_freq(next_index) = freq;
+        end
+    end
+    plot(current_time,abs(non_null_amplitude_freq));
+    hold on;
+end
+
