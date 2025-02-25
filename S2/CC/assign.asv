@@ -1,0 +1,7 @@
+function output = assign(vector,cut_index)
+    output = {};
+    for i = 1:length(vector)
+       if(i )
+    end
+
+end
